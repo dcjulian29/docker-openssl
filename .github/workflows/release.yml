@@ -28,5 +28,5 @@ jobs:
           context: .
           push: true
           tags: |
-            dcjulian29/opwnssl:${{ steps.vars.outputs.version }}
+            dcjulian29/openssl:${{ steps.vars.outputs.version }}
             dcjulian29/openssl:latest
