@@ -20,6 +20,8 @@ FROM debian:11-slim
 
 ARG VERSION
 
+ENV OPENSSL_FIPS=1
+
 COPY --from=0 /opt/ssl /opt/ssl
 
 RUN echo "/opt/ssl/lib64" > /etc/ld.so.conf.d/openssl-${VERSION}.conf \
