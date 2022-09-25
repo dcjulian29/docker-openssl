@@ -22,8 +22,12 @@ ARG VERSION
 
 ENV OPENSSL_FIPS=1
 ENV PATH="/opt/ssl/bin:${PATH}"
+ENV PUID=1000
+ENV PGID=1000
 
 COPY --from=0 /opt/ssl /opt/ssl
+
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "/opt/ssl/lib64" > /etc/ld.so.conf.d/openssl-${VERSION}.conf \
   && ldconfig && openssl version
@@ -32,4 +36,4 @@ VOLUME /data
 
 WORKDIR /data
 
-ENTRYPOINT [ "/opt/ssl/bin/openssl" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
