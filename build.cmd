@@ -13,6 +13,8 @@ docker tag dcjulian29/openssl:%VERSION% dcjulian29/openssl:latest
 
 :FINAL
 
+goreleaser --snapshot --skip-publish --clean
+
 popd
 
 endlocal
