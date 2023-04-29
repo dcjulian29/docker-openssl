@@ -22,6 +22,8 @@ import (
 	"strings"
 )
 
+var imageVersion string
+
 func main() {
 	args := os.Args[1:]
 	pwd, _ := os.Getwd()
@@ -41,7 +43,7 @@ func main() {
 
 	docker = append(docker, "-v")
 	docker = append(docker, data)
-	docker = append(docker, "dcjulian29/openssl:latest")
+	docker = append(docker, fmt.Sprintf("dcjulian29/openssl:%s", imageVersion))
 	docker = append(docker, args...)
 
 	cmd := exec.Command("docker", docker...)
