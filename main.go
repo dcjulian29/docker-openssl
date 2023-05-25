@@ -27,7 +27,14 @@ var imageVersion string
 func main() {
 	args := os.Args[1:]
 	pwd, _ := os.Getwd()
-	data := strings.ReplaceAll(fmt.Sprintf("%s:/data", pwd), "\\", "/")
+	pwd = strings.ReplaceAll(strings.ReplaceAll(pwd, "\\", "/"), ":", "")
+	host := fmt.Sprintf("%s:\\", string(pwd[0]))
+	container := fmt.Sprintf("/%s", string(pwd[0]))
+
+	data := pwd[2:]
+
+	work := fmt.Sprintf("%s/%s", container, data)
+
 	docker := []string{
 		"run",
 		"--rm",
@@ -42,7 +49,9 @@ func main() {
 	}
 
 	docker = append(docker, "-v")
-	docker = append(docker, data)
+	docker = append(docker, fmt.Sprintf("%s:%s", host, container))
+	docker = append(docker, "-w")
+	docker = append(docker, work)
 	docker = append(docker, fmt.Sprintf("dcjulian29/openssl:%s", imageVersion))
 	docker = append(docker, args...)
 
