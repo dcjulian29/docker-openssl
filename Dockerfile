@@ -16,7 +16,7 @@ RUN cd /usr/local/src/openssl-openssl-${VERSION} && make install
 
 #---------------------------------------------
 
-FROM debian:11-slim
+FROM debian:12-slim
 
 ARG VERSION
 
