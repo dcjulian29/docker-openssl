@@ -42,7 +42,7 @@ jobs:
         with:
           build-args: |
             VERSION=${{ steps.vars.outputs.version }}
-          tags: dcjulian29/nmap:${{ steps.vars.outputs.version }}-${{ steps.format-time.outputs.replaced }}
+          tags: dcjulian29/openssl:${{ steps.vars.outputs.version }}-${{ steps.format-time.outputs.replaced }}
 
   release:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -69,4 +69,4 @@ jobs:
           build-args: |
             VERSION=${{ steps.vars.outputs.version }}
           push: true
-          tags: dcjulian29/nmap:${{ steps.vars.outputs.version }},dcjulian29/nmap:latest
+          tags: dcjulian29/openssl:${{ steps.vars.outputs.version }},dcjulian29/openssl:latest
