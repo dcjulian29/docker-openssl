@@ -5,7 +5,7 @@ pushd %~dp0
 
 for /f "delims=" %%x in (version) do set VERSION=%%x
 
-docker build --build-arg VERSION=%VERSION% -t dcjulian29/openssl:%VERSION% .
+docker build --progress plain --no-cache --build-arg VERSION=%VERSION% -t dcjulian29/openssl:%VERSION% .
 
 if %errorlevel% neq 0 GOTO FINAL
 
