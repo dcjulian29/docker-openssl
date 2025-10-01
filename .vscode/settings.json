@@ -3,6 +3,13 @@
     "CHOCO",
     "chocolateys",
     "dcjulian",
-    "goarch"
+    "fips",
+    "goarch",
+    "ldconfig",
+    "openssldir",
+    "PGID",
+    "popd",
+    "PUID",
+    "pushd"
   ]
 }
