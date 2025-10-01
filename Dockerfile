@@ -4,9 +4,12 @@ ARG VERSION
 
 RUN cd /usr/local/src \
   && wget -nv https://github.com/openssl/openssl/archive/refs/tags/openssl-${VERSION}.tar.gz \
-  && tar -xvf openssl-${VERSION}.tar.gz \
-  && cd openssl-openssl-${VERSION} \
-  && ./Configure --prefix=/opt/ssl --openssldir=/opt/ssl no-weak-ssl-ciphers enable-fips
+  && tar -xvf openssl-${VERSION}.tar.gz
+
+RUN cd /usr/local/src/openssl-openssl-${VERSION} \
+  && ./Configure --prefix=/opt/ssl --openssldir=/opt/ssl \
+    no-weak-ssl-ciphers enable-fips \
+    -DOPENSSL_TLS_SECURITY_LEVEL=2 enable-ec_nistp_64_gcc_128
 
 RUN cd /usr/local/src/openssl-openssl-${VERSION} && make
 
