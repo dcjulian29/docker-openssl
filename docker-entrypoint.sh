@@ -1,8 +1,7 @@
 #!/bin/bash
 
-addgroup -gid ${PGID} openssl > /dev/null 2>&1
-adduser --home /data --no-create-home --uid ${PUID} --gid=${PGID} \
-  --disabled-password --gecos "First,Last,RoomNumber,WorkPhone,HomePhone" openssl > /dev/null 2>&1
+groupadd --gid ${PGID} openssl
+useradd --home-dir /data --no-create-home --uid ${PUID} --gid=${PGID} openssl
 
 case $@ in
   shell)
