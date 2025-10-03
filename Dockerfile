@@ -32,7 +32,7 @@ COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "/opt/ssl/lib64" > /etc/ld.so.conf.d/openssl-${VERSION}.conf \
   && ldconfig \
-  && openssl version \
+  && /opt/ssl/bin/openssl version \
   && chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 VOLUME /data
