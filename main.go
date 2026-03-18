@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 Julian Easterling julian@julianscorner.com
+Copyright © 2026 Julian Easterling julian@julianscorner.com
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,50 +18,19 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
-	"strings"
+
+	"github.com/dcjulian29/go-toolbox/docker"
+	"github.com/dcjulian29/go-toolbox/textformat"
 )
 
 var imageVersion string
 
 func main() {
-	args := os.Args[1:]
-	pwd, _ := os.Getwd()
-	pwd = strings.ReplaceAll(strings.ReplaceAll(pwd, "\\", "/"), ":", "")
-	host := fmt.Sprintf("%s:\\", string(pwd[0]))
-	container := fmt.Sprintf("/%s", string(pwd[0]))
+	image := "dcjulian29/openssl"
+	prefix := "OPENSSL"
 
-	data := pwd[2:]
-
-	work := fmt.Sprintf("%s/%s", container, data)
-
-	docker := []string{
-		"run",
-		"--rm",
-		"-it",
-	}
-
-	for _, e := range os.Environ() {
-		if strings.HasPrefix(e, "OPENSSL") {
-			docker = append(docker, "-e")
-			docker = append(docker, e)
-		}
-	}
-
-	docker = append(docker, "-v")
-	docker = append(docker, fmt.Sprintf("%s:%s", host, container))
-	docker = append(docker, "-w")
-	docker = append(docker, work)
-	docker = append(docker, fmt.Sprintf("dcjulian29/openssl:%s", imageVersion))
-	docker = append(docker, args...)
-
-	cmd := exec.Command("docker", docker...)
-	cmd.Stderr = os.Stderr
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-
-	if err := cmd.Run(); err != nil {
-		fmt.Printf("\033[1;31m%s\033[0m\n", err)
+	if err := docker.RunInteractive(image, imageVersion, prefix); err != nil {
+		fmt.Println(textformat.Fatal(err.Error()))
 		os.Exit(1)
 	}
 
