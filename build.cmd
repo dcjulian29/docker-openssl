@@ -3,13 +3,13 @@ setlocal
 
 pushd %~dp0
 
-for /f "delims=" %%x in (version) do set VERSION=%%x
+for /f "delims=" %%x in (version) do set IMAGE_VERSION=%%x
 
-docker build --progress plain --no-cache --build-arg VERSION=%VERSION% -t dcjulian29/openssl:%VERSION% .
+docker build --progress plain --build-arg VERSION=%IMAGE_VERSION% -t dcjulian29/openssl:%IMAGE_VERSION% .
 
 if %errorlevel% neq 0 GOTO FINAL
 
-docker tag dcjulian29/openssl:%VERSION% dcjulian29/openssl:latest
+docker tag dcjulian29/openssl:%IMAGE_VERSION% dcjulian29/openssl:latest
 
 :FINAL
 
