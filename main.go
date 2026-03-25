@@ -18,21 +18,35 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/dcjulian29/go-toolbox/docker"
+	"github.com/dcjulian29/go-toolbox/filesystem"
 	"github.com/dcjulian29/go-toolbox/textformat"
 )
 
 var imageVersion string
 
 func main() {
-	image := "dcjulian29/openssl"
-	prefix := "OPENSSL"
+	args := filesystem.EnsureUnixPathArguments()
 
-	if err := docker.RunInteractive(image, imageVersion, prefix); err != nil {
+	if len(args) == 1 {
+		if args[0] == "--image-version" {
+			fmt.Println(imageVersion)
+			os.Exit(0)
+		}
+	}
+
+	opts := docker.ContainerOptions{
+		AdditionalArgs:       strings.Join(args, " "),
+		EnvironmentVariables: docker.EnvironmentVariablesWithPrefix("OPENSSL"),
+		Image:                "dcjulian29/openssl",
+		Interactive:          true,
+		Tag:                  imageVersion,
+	}
+
+	if _, err := docker.Run(opts); err != nil {
 		fmt.Println(textformat.Fatal(err.Error()))
 		os.Exit(1)
 	}
-
-	os.Exit(0)
 }
