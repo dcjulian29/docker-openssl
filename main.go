@@ -18,7 +18,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/dcjulian29/go-toolbox/docker"
 	"github.com/dcjulian29/go-toolbox/filesystem"
@@ -38,7 +37,7 @@ func main() {
 	}
 
 	opts := docker.ContainerOptions{
-		AdditionalArgs:       strings.Join(args, " "),
+		AdditionalArgs:       args,
 		EnvironmentVariables: docker.EnvironmentVariablesWithPrefix("OPENSSL"),
 		Image:                "dcjulian29/openssl",
 		Interactive:          true,
