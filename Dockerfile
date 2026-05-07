@@ -1,4 +1,4 @@
-FROM gcc:15
+FROM gcc:16
 
 ARG VERSION
 
