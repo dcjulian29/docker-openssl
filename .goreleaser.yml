@@ -25,9 +25,9 @@ archives:
     name_template: "dcjulian29.apps.openssl-via-docker_{{ .Version }}"
 chocolateys:
   - name: dcjulian29.apps.openssl-via-docker
-    authors: Julian Easterling <julian@julianscorner.com>
+    authors: Julian Easterling
     project_url: https://github.com/dcjulian29/docker-openssl/
-    copyright: 2023 Julian Easterling julian@julianscorner.com
+    copyright: 2026 Julian Easterling
     license_url: https://github.com/dcjulian29/docker-openssl/blob/main/LICENSE
     require_license_acceptance: false
     bug_tracker_url: https://github.com/dcjulian29/docker-openssl/issues
