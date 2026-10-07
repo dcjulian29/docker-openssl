@@ -58,6 +58,6 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           build-args: |
-            VERSION=${{ steps.vars.outputs.version }}
+            VERSION=${{ steps.v1.outputs.version }}
           push: true
-          tags: dcjulian29/openssl:${{ steps.vars.outputs.version }},dcjulian29/openssl:latest
+          tags: dcjulian29/openssl:${{ steps.v1.outputs.version }},dcjulian29/openssl:latest
